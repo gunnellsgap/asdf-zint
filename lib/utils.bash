@@ -58,14 +58,19 @@ install_version() {
   fi
 
   (
+    current_script_path=${BASH_SOURCE[0]}
+    current_dir=$(dirname "$current_script_path")
+
     mkdir -p "$install_path"
 
+    patch --directory="$ASDF_DOWNLOAD_PATH" < $current_dir/fix_osx_sysroot.patch
     cmake -S "$ASDF_DOWNLOAD_PATH" -B "$ASDF_DOWNLOAD_PATH/build" --install-prefix=$install_path \
-      -DCMAKE_BUILD_TYPE=Release
+      -DCMAKE_BUILD_TYPE=Release \
+      -DZINT_USE_QT=NO
     cmake --build "$ASDF_DOWNLOAD_PATH/build"
     cmake --install "$ASDF_DOWNLOAD_PATH/build"
 
-    # TODO: Assert flatc executable exists.
+    # TODO: Assert zint executable exists.
     local tool_cmd
     tool_cmd="$(echo "$TOOL_TEST" | cut -d' ' -f1)"
     test -x "$install_path/bin/$tool_cmd" || fail "Expected $install_path/bin/$tool_cmd to be executable."

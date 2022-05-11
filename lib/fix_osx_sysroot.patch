@@ -1,0 +1,14 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index c598c6b..fa3a6d7 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -123,7 +123,8 @@ if(APPLE)
+             message("Build architectures for OSX:${CMAKE_OSX_ARCHITECTURES}")
+         endif()
+     else()
+-        set(CMAKE_OSX_SYSROOT "/")
++        # Don't override CMAKE_OSX_SYSROOT. Let CMake find the correct sysroot for us.
++        #set(CMAKE_OSX_SYSROOT "/")
+     endif()
+ endif()
+ 
