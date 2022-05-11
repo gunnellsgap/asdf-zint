@@ -63,7 +63,7 @@ install_version() {
 
     mkdir -p "$install_path"
 
-    patch --directory="$ASDF_DOWNLOAD_PATH" < $current_dir/fix_osx_sysroot.patch
+    patch --directory="$ASDF_DOWNLOAD_PATH" <$current_dir/fix_osx_sysroot.patch
     cmake -S "$ASDF_DOWNLOAD_PATH" -B "$ASDF_DOWNLOAD_PATH/build" --install-prefix=$install_path \
       -DCMAKE_BUILD_TYPE=Release \
       -DZINT_USE_QT=NO
