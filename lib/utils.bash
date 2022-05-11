@@ -3,7 +3,7 @@
 set -euo pipefail
 
 # TODO: Ensure this is the correct GitHub homepage where releases can be downloaded for zint.
-GH_REPO="https://github.com/gunnellsgap/zint"
+GH_REPO="https://github.com/woo-j/zint"
 TOOL_NAME="zint"
 TOOL_TEST="zint --help"
 
@@ -25,7 +25,7 @@ sort_versions() {
 }
 
 list_github_tags() {
-  git ls-remote --tags --refs "$GH_REPO" |
+  echo git ls-remote --tags --refs "$GH_REPO" |
     grep -o 'refs/tags/.*' | cut -d/ -f3- |
     sed 's/^v//' # NOTE: You might want to adapt this sed to remove non-version strings from tags
 }
@@ -59,9 +59,13 @@ install_version() {
 
   (
     mkdir -p "$install_path"
-    cp -r "$ASDF_DOWNLOAD_PATH"/* "$install_path"
 
-    # TODO: Asert zint executable exists.
+    cmake -S "$ASDF_DOWNLOAD_PATH" -B "$ASDF_DOWNLOAD_PATH/build" --install-prefix=$install_path \
+      -DCMAKE_BUILD_TYPE=Release
+    cmake --build "$ASDF_DOWNLOAD_PATH/build"
+    cmake --install "$ASDF_DOWNLOAD_PATH/build"
+
+    # TODO: Assert flatc executable exists.
     local tool_cmd
     tool_cmd="$(echo "$TOOL_TEST" | cut -d' ' -f1)"
     test -x "$install_path/bin/$tool_cmd" || fail "Expected $install_path/bin/$tool_cmd to be executable."

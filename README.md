@@ -3,7 +3,7 @@
 # asdf-zint [![Build](https://github.com/gunnellsgap/asdf-zint/actions/workflows/build.yml/badge.svg)](https://github.com/gunnellsgap/asdf-zint/actions/workflows/build.yml) [![Lint](https://github.com/gunnellsgap/asdf-zint/actions/workflows/lint.yml/badge.svg)](https://github.com/gunnellsgap/asdf-zint/actions/workflows/lint.yml)
 
 
-[zint](https://github.com/gunnellsgap/zint) plugin for the [asdf version manager](https://asdf-vm.com).
+[zint](https://www.zint.org.uk/) plugin for the [asdf version manager](https://asdf-vm.com).
 
 </div>
 
